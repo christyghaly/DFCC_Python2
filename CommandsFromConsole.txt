@@ -1,0 +1,2 @@
+from AutoCorrelationFit import AutoCorrelationFit
+xiii,nuuu=AutoCorrelationFit(lags,R)
