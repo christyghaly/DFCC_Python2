@@ -209,15 +209,13 @@ if __name__ == "__main__":
             YPos[kk][ii][jj] = int(trajectory[kk][1])
 
 
-    print('* Creating the maps')
-
     mask_matrix = numpy.zeros((frames[0].shape[0], frames[0].shape[1]), dtype=float)
     mask_matrix[numpy.where(frames[0] >= 60) ] = 255
     mask_matrix[numpy.where(frames[0] < 60) ] = 0
     
-    cv2.imshow('Mask3',mask_matrix)
-    cv2.waitKey(0)  
-    cv2.destroyAllWindows()
+    # cv2.imshow('Mask3',mask_matrix)
+    # cv2.waitKey(0)  
+    # cv2.destroyAllWindows()
     
     filename = 'maskedImage.jpg'
     cv2.imwrite(filename, mask_matrix)
@@ -229,6 +227,7 @@ if __name__ == "__main__":
     xi,nu = AutoCorrelationFit(lags,R)
     xi_mag,nu_mag = AutoCorrelationFit(lags,R_mag)
     PlotParameters(xi, nu, 0.2, xi_mag = xi_mag, nu_mag= nu_mag)
+    print("finished")
     
     
     
