@@ -112,10 +112,12 @@ if __name__ == "__main__":
         # output_directory = '%s/../output-protocol/' % os.getcwd()
         # pixel_threshold = 150
         
-        video_sequence = '%s/../data/protocol/rna/rna.avi' % os.getcwd()
+        video_sequence = '%s/../data/protocol/dna/dna.avi' % os.getcwd()
         output_directory = '%s/../output-protocol/' % os.getcwd()
-        pixel_threshold = 150
-        pixel_size = 0.088
+        pixel_threshold = 120
+        pixel_size = 0.09
+        # pixel_threshold = 150
+        # pixel_size = 0.088
 
         dt = 0.2
         models_selected = list()
@@ -210,8 +212,8 @@ if __name__ == "__main__":
 
 
     mask_matrix = numpy.zeros((frames[0].shape[0], frames[0].shape[1]), dtype=float)
-    mask_matrix[numpy.where(frames[0] >= 60) ] = 255
-    mask_matrix[numpy.where(frames[0] < 60) ] = 0
+    mask_matrix[numpy.where(frames[0] >= pixel_threshold) ] = 255
+    mask_matrix[numpy.where(frames[0] < pixel_threshold) ] = 0
     
     # cv2.imshow('Mask3',mask_matrix)
     # cv2.waitKey(0)  
@@ -221,8 +223,8 @@ if __name__ == "__main__":
     cv2.imwrite(filename, mask_matrix)
     
     
-    R,lags = autocorrelation.autocorrelation('dir', 0.088,mask_matrix,XPos,YPos)
-    R_mag,_= autocorrelation.autocorrelation('mag', 0.088,mask_matrix,XPos,YPos)
+    R,lags = autocorrelation.autocorrelation('dir', pixel_size,mask_matrix,XPos,YPos)
+    R_mag,_= autocorrelation.autocorrelation('mag', pixel_size,mask_matrix,XPos,YPos)
     
     xi,nu = AutoCorrelationFit(lags,R)
     xi_mag,nu_mag = AutoCorrelationFit(lags,R_mag)

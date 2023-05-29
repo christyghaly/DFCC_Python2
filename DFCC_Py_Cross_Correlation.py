@@ -29,7 +29,7 @@ import video_processing
 import plotting
 import msd
 # from core import inference
-import autocorrelation
+import crosscorrelation
 # from core import innerCircle
 # from core import radavg
 from AutoCorrelationFit import AutoCorrelationFit
@@ -40,61 +40,6 @@ from PlotParameters import PlotParameters
 # @__main__
 ####################################################################################################
 if __name__ == "__main__":
-
-    # Parse the command line arguments
-    # args = parse_command_line_arguments()
-
-    # if args.config_file == 'EMPTY':
-
-    #     # video_sequence = args.input_sequence
-    #     # output_directory = args.output_directory
-    #     # pixel_threshold = args.pixel_threshold
-    #     # pixel_size = args.pixel_size
-    #     # video_sequence = '%s/../data/protocol/H2B_50Frames/U2OS_H2BGFP_example_data_50Frames.avi' % os.getcwd()
-    #     # output_directory = '%s/../output-protocol/' % os.getcwd()
-    #     # pixel_threshold = 150
-        
-        
-    #     models_selected = list()
-    #     models_selected.append('D')
-    #     models_selected.append('DA')
-    #     models_selected.append('V')
-    #     models_selected.append('DV')
-    #     models_selected.append('DAV')
-        
-    # else:
-    #     import configparser
-    #     config_file = configparser.ConfigParser()
-
-    #     # READ CONFIG FILE
-    #     config_file.read(args.config_file)
-
-    #     video_sequence = str(config_file['HID_PARAMETERS']['video_sequence'])
-    #     output_directory = str(config_file['HID_PARAMETERS']['output_directory'])
-    #     pixel_threshold = float(config_file['HID_PARAMETERS']['pixel_threshold'])
-    #     pixel_size = float(config_file['HID_PARAMETERS']['pixel_size'])
-    #     dt = float(config_file['HID_PARAMETERS']['dt'])
-    #     ncores = int(config_file['HID_PARAMETERS']['n_cores'])
-        
-    #     d_model = config_file['HID_PARAMETERS']['d_model']
-    #     da_model = config_file['HID_PARAMETERS']['da_model']
-    #     v_model = config_file['HID_PARAMETERS']['v_model']
-    #     dv_model = config_file['HID_PARAMETERS']['dv_model']
-    #     dav_model = config_file['HID_PARAMETERS']['dav_model']
-        
-    #     models_selected = list()
-    #     if d_model == 'Yes':
-    #         models_selected.append('D')
-    #     if da_model: 
-    #         models_selected.append('DA')
-    #     if v_model: 
-    #         models_selected.append('V')
-    #     if dv_model: 
-    #         models_selected.append('DV')
-    #     if dav_model: 
-    #         models_selected.append('DAV')
-
-    # print(video_sequence)
     
     video_sequence1 = '%s/../data/protocol/rna/rna.avi' % os.getcwd()
     output_directory1 = '%s/../output-protocol/' % os.getcwd()
@@ -220,13 +165,13 @@ if __name__ == "__main__":
     
     
     
-    # R,lags = autocorrelation.autocorrelation('dir', 0.088,mask_matrix,XPos,YPos)
-    # R_mag,_= autocorrelation.autocorrelation('mag', 0.088,mask_matrix,XPos,YPos)
+    R,lags = crosscorrelation.crosscorrelation('dir', pixel_sizes,masks,Xpositions,YPositions)
+    R_mag,_= crosscorrelation.crosscorrelation('mag',pixel_sizes,masks,Xpositions,YPositions)
     
-    # xi,nu = AutoCorrelationFit(lags,R)
-    # xi_mag,nu_mag = AutoCorrelationFit(lags,R_mag)
-    # PlotParameters(xi, nu, 0.2, xi_mag = xi_mag, nu_mag= nu_mag)
-    # print("finished")
+    xi,nu = AutoCorrelationFit(lags,R)
+    xi_mag,nu_mag = AutoCorrelationFit(lags,R_mag)
+    PlotParameters(xi, nu, 0.2, xi_mag = xi_mag, nu_mag= nu_mag)
+    print("finished")
     
     
     
