@@ -11,7 +11,7 @@ from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 import sys
 
-def func(x,b1,b2,b3):
+def WM_model(x,b1,b2,b3):
     fourth_argumnet=kv(b3,np.divide(x,b2))
     third_arg=np.power(np.divide(x,b2),b3)
     second_arg=np.divide(2**(1-b3),gamma(b3))
@@ -36,7 +36,7 @@ def AutoCorrelationFit(lags, Correlation, magOrdir):
         #xdata is lags
         #ydata is y which is the mean of the data
         y = np.reshape(y_notReshaped,(y_notReshaped.shape[1],))
-        popt, pcov = curve_fit(func, lags, y,p0=p_0,check_finite=True, bounds=([sys.float_info.epsilon,0,0],[2000,10000,20]))
+        popt, pcov = curve_fit(WM_model, lags, y,p0=p_0,check_finite=True, bounds=([sys.float_info.epsilon,0,0],[2000,10000,20]))
         coeffs_std = np.sqrt(np.diag(pcov))
         
         # plt.plot(lags,func(lags,popt[0],popt[1],popt[2]), c= colour[i])
