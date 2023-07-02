@@ -39,7 +39,7 @@ def AutoCorrelationFit(lags, Correlation, magOrdir):
         popt, pcov = curve_fit(WM_model, lags, y,p0=p_0,check_finite=True, bounds=([sys.float_info.epsilon,0,0],[2000,10000,20]))
         coeffs_std = np.sqrt(np.diag(pcov))
         
-        # plt.plot(lags,func(lags,popt[0],popt[1],popt[2]), c= colour[i])
+        # plt.plot(lags,WM_model(lags,popt[0],popt[1],popt[2]), c= colour[i])
         # plt.plot(lags,y, markerfacecolor=colour[i], marker="o", markeredgecolor=colour[i],markersize=1)
         # plt.xlabel('Spatial distance in pixels')
         # plt.ylabel('Correlation')
